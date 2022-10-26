@@ -14,10 +14,11 @@ return new class extends Migration
     public function up()
     {	
         Schema::create('Ticket', function (Blueprint $table) {
-	    $len_uid = env('LEN_UID', 12);
+	    $len_uid = env('LEN_UID', 36);
 
             $table->id();	    
-	    $table->char('uid', $len_uid)->default(bin2hex(random_bytes($len_uid / 2)));
+	    $table->char('uid', $len_uid)->unique();
+		//default(DB::raw('bin2hex(random_bytes($len_uid / 2))'));
 	    $table->string('subject');
 	    $table->string('user_name');
 	    $table->string('user_email');
