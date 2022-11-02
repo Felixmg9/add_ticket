@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
+use App\Models\CommonTable; 
+
 
 function generate_uuid() {
     return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',       
@@ -16,28 +16,13 @@ function generate_uuid() {
     );
 }
 
-class Ticket extends Model
+
+class Ticket extends CommonTable 
 {
     use HasFactory;
     protected $table = 'Ticket';
-    public function my_append(array $data)
-    {
-	$set_field = ['subject', 'user_name', 'user_email'];
+    protected $set_fields = ['subject', 'user_name', 'user_email']; 	
 
-	if (array_diff($set_field, array_keys($data)) != [])
-	    return;
-
-	$rec = new Ticket;
-
-	foreach($set_field as $key)
-	    $rec->{$key} = $data[$key];
- 	
-	DB::beginTransaction();
-        $rec->save();
-	echo '== id =' . $rec->id;
-        DB::commit();
-	return $rec->id;  
-    }
     public function save(array $options = []) 
     {
         if (empty($this->uid))

@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\CommonTable; 
 
-class Message extends Model
+
+class Message extends CommonTable
 {
-    use HasFactory;
-    protected $table = 'Message';
+	use HasFactory;
+	protected $table = 'Message';
+	protected $set_fields = ['author', 'content', 'ticket_id'];
 }

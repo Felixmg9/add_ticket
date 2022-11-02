@@ -52,4 +52,55 @@ $response = $kernel->handle(
     $request = Request::capture()
 )->send();
 
+use \App\Models\Ticket;
+use \App\Models\Message;
+use \App\Models\ServerCredentials;
+
+//use \App\Http\Controllers\PostController;
+//var_dump(new PostController);
+
+/*
+$a = new Ticket; 
+$a->subject = 'www';
+$a->user_name = 'felix';
+$a->user_email = 'felix.mg9';
+//$a->uid = 'nreingrenre';
+$a->save();
+echo $a->id;
+*/
+
+/*
+use Illuminate\Http\Request;
+
+class PostController extends Controller
+{
+    public function create()
+    {
+        echo '=== create PostController ';
+	return view('post.create');
+    }	
+    public function store(Request $request)
+    {
+	echo '=== create PostController ';
+	$rules = ['uid' => 'required|min:10', 'description' => 'required'];
+        $this->validate( $request, $rules);
+    }
+}
+*/
+
+
+?>
+<pre> 
+	<?
+		foreach (Ticket::all() as $t)
+			echo $t->user_name . '---' . $t->user_email . PHP_EOL;
+		echo PHP_EOL;
+		foreach (Message::all() as $t)
+			echo $t->author . '---' . $t->content . PHP_EOL ;
+
+  	?> 
+</pre>
+<?
+
+
 $kernel->terminate($request, $response);

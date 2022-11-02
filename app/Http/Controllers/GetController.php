@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use \App\Models\Ticket;
+use \App\Models\Message;
+
 
 class GetController extends Controller
 {
@@ -15,13 +19,18 @@ class GetController extends Controller
     }
     static public function my_append(array $data)
     {    
-	echo  'my_append--';
-	//var_dump($data);
-	var_dump((array_keys($data) == ['ftp_login', 'ftp_password']));
+	//var_dump((array_keys($data) == ['ftp_login', 'ftp_password']));
 	if (array_keys($data) == ['ftp_login', 'ftp_password'])
 	    self::$cred = $data;
-//	if (asset(self::$cred))
-	echo '=== $cred = ';
-	var_dump(self::$cred);
+	//var_dump(self::$cred);
+
+	DB::beginTransaction();
+	try
+	{	(new Ticket)->my_append($data);
+		(new Message)->my_append($data);
+		DB::commit();
+	}
+	catch (Exception $e)
+	{	DB::rollback();	}
     }		
 }
