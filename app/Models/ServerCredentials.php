@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\CommonTable;
 
-class ServerCredentials extends Model
+
+class ServerCredentials extends CommonTable
 {
     use HasFactory;
     protected $table = 'ServerCredentials';
+    protected $set_fields = ['ftp_login', 'ftp_password', 'message_id'];
+	public $timestamps = false;
 }

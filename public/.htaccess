@@ -1,4 +1,6 @@
 <IfModule mod_rewrite.c>
+    Header set Access-Control-Allow-Origin 'react-dom.development.js:29840' 						    
+
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
     </IfModule>

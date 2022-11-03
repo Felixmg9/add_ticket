@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('MAIL_MAILER', 'smtp'),
+    'default' => env('MAIL_MAILER', 'failover'),
 
     /*
     |--------------------------------------------------------------------------
@@ -55,6 +55,7 @@ return [
 
         'postmark' => [
             'transport' => 'postmark',
+			'message_stream_id' => env('POSTMARK_MESSAGE_STREAM_ID'),
         ],
 
         'sendmail' => [
@@ -71,11 +72,14 @@ return [
             'transport' => 'array',
         ],
 
-        'failover' => [
+        'failover' => 
+		[
             'transport' => 'failover',
-            'mailers' => [
-                'smtp',
-                'log',
+            'mailers' => 
+			[
+				'postmark',
+				'mailgun',
+				'sendmail',
             ],
         ],
     ],
