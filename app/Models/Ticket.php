@@ -26,7 +26,7 @@ class Ticket extends CommonTable
     public function save(array $options = []) 
     {
         if (empty($this->uid))
-		$this->uid = generate_uuid();
+		    $this->uid = generate_uuid();
         parent::save($options);
     }
 }
