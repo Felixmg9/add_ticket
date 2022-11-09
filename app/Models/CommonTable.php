@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+// protected $set_fields - set of required fields for save this table 
 
 abstract class CommonTable extends Model
 {
@@ -21,6 +22,7 @@ abstract class CommonTable extends Model
 		echo '------------' . $this->ftp_login;
 		*/
 		foreach($this->set_fields as $key)
+<<<<<<< HEAD
 		{
 	    	if (isset($data[$key]))
 				$this->{$key} = $data[$key];
@@ -41,4 +43,17 @@ abstract class CommonTable extends Model
 		}
 		return;
 	}
+=======
+	    		$this->{$key} = $data[$key];
+ 		
+        $this->save();
+		
+		if (empty($this->id))
+			throw new Exception("no new record {$this->table}");
+		
+        $data += [strtolower($this->table) . '_id' => $this->id];
+		
+        return;
+    	}
+>>>>>>> 75db7910326a30cd16a7de516cc32c4d8532f6ed
 }
